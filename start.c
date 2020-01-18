@@ -38,6 +38,7 @@ void print_mat()
 				for(j=0 ; j<10 ; j++)
 				{
 					position=getc(ptf1);
+					if(position=='*' || position=='1' || position=='#' || position=='0')
 					mat[i][j]=position;
 				}
 			}
