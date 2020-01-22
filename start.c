@@ -50,28 +50,28 @@ void print_mat()
 		ch=getchar();
 		while (ch!='1')
 		{
-			if(ch==22472) 
+			if(ch==72) 
 			{
 				mat[i][j]='1';
 				mat[i+1][j]='0';
 				print_mat();
 				i=i+1;
 			}
-			if(ch==22480) 
+			if(ch==80) 
 			{
 				mat[i][j]='1';
 				mat[i-1][j]='0';
 				print_mat();
 				i=i-1;
 			}
-			if(ch==22475) 
+			if(ch==75) 
 			{
 				mat[i][j]='1';
 				mat[i][j+1]='0';
 				print_mat();
 				j=j+1;
 			}
-			if(ch==22477) 
+			if(ch==77) 
 			{
 				mat[i][j]='1';
 				mat[i][j-1]='0';
