@@ -107,7 +107,7 @@ int main()
 				    case 77:
 								if (mat[i][j+1]=='#')
 									continue;
-								else if (mat[i][j+1]=='*' ||mat[i][j+1]=='1' )
+								else if (mat[i][j+1]=='*' || mat[i][j+1]=='1' )
 								{	
 									if(mat[i][j+1]=='*')
 										num_food--;
