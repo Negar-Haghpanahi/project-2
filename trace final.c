@@ -136,5 +136,7 @@ int main()
 				}
 			}
 		}
+		if (num_food==0)
+			puts("well done !  you have finished the game :) ");
 	}
 
