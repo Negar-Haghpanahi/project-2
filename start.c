@@ -3,7 +3,18 @@
 
 #include<stdio.h>
 #include<conio.h>
-char mat[5][10];
+#include<windows.h> // *******
+
+char mat[4][4];
+
+void gotoxy(int x, int y)  // *******
+{
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD cursorCoord;
+	cursorCoord.X=x;
+	cursorCoord.Y=y;
+	SetConsoleCursorPosition(consoleHandle, cursorCoord);
+}
 void print_mat()
 {
 	int i, j;
@@ -16,11 +27,10 @@ void print_mat()
 		printf("\n");
 	}
 	sleep(1);
-	system("cls");
 }
  int main()
  {
- 	int  row_mat , column_mat ,i , j;
+ 	int  row_mat , column_mat ,i , j ,  num_food=0;
 	char address_file[100] , position ,ch;
 	char  pacman='0' , star='*' , mat[4][10];
 	FILE  *ptf1;
@@ -38,47 +48,100 @@ void print_mat()
 				for(j=0 ; j<10 ; j++)
 				{
 					position=getc(ptf1);
+					if ( position=='*')
+						num_food++;
 					if(position=='*' || position=='1' || position=='#' || position=='0')
 					mat[i][j]=position;
 				}
 			}
 		}
 		fclose(ptf1);
+		system("cls");
 		print_mat();
+		sleep(2);
+		system("cls");
 		i=0; j=0;
 		mat[i][j]='0';
-		ch=getchar();
-		while (ch!='1')
+		getchar ();  // reading '\n'
+		printf("enter the keys to play.\n");
+		print_mat();
+ 
+		while (num_food>0)  
 		{
-			if(ch==72) 
+			ch=getch(); // +++++
+			if (ch = 224)
 			{
-				mat[i][j]='1';
-				mat[i+1][j]='0';
-				print_mat();
-				i=i+1;
+		       	ch=getch(); // +++++ 
+				
+				gotoxy (0, 1); 
+				
+				switch (ch)
+				{
+			   		 case 80 :
+								if (mat[i+1][j]=='#')
+									continue;
+								else if (mat[i+1][j]=='*' ||mat[i+1][j]=='1' )
+								{  
+									if(mat[i+1][j]=='*')
+										num_food--;
+									mat[i][j]='1';
+									mat[i+1][j]='0';
+									print_mat();
+									i=i+1;
+									break;
+								}
+								else 
+									continue;
+				
+					case 72: 
+								if (mat[i-1][j]=='#')
+									continue;
+								else if (mat[i-1][j]=='*' ||mat[i-1][j]=='1' )
+							    {
+							    	if(mat[i-1][j]=='*')
+										num_food--;
+									mat[i][j]='1';
+									mat[i-1][j]='0';
+									print_mat();
+									i=i-1;
+									break;
+								}
+								else 
+									continue;
+				
+				    case 77:
+								if (mat[i][j+1]=='#')
+									continue;
+								else if (mat[i][j+1]=='*' ||mat[i][j+1]=='1' )
+								{	
+									if(mat[i][j+1]=='*')
+										num_food--;
+									mat[i][j]='1';
+									mat[i][j+1]='0';
+									print_mat();
+									j=j+1;
+									break;	
+								}
+								else 
+									continue;	
+				
+					case 75:
+								if(mat[i][j-1]=='#')
+									continue;
+							else if (mat[i][j-1]=='*' ||mat[i][j-1]=='1' )
+								{	
+									if(mat[i][j-1]=='*')
+										num_food--;
+									mat[i][j]='1';
+									mat[i][j-1]='0';
+									print_mat();
+									j=j-1;
+									break;
+								}
+								else 
+									continue;
+				} 
 			}
-			if(ch==80) 
-			{
-				mat[i][j]='1';
-				mat[i-1][j]='0';
-				print_mat();
-				i=i-1;
-			}
-			if(ch==75) 
-			{
-				mat[i][j]='1';
-				mat[i][j+1]='0';
-				print_mat();
-				j=j+1;
-			}
-			if(ch==77) 
-			{
-				mat[i][j]='1';
-				mat[i][j-1]='0';
-				print_mat();
-				j=j-1;
-			}
-			ch=getchar();
 		}
 		
 	}
